@@ -1,22 +1,31 @@
-import React from "react";
-import {useSelector, useDispatch} from "react-redux"
-import { userAdded } from "./features/usersSlice";
+import React, {useEffect} from "react";
+import {useSelector, useDispatch} from "react-redux";
+import { userRemoved, userAdded } from "./features/usersSlice";
+import LandingPage from "./components/LandingPage";
 
 function App() {
-
   const user = useSelector(state => state.users)
   const dispatch = useDispatch()
 
-  function handleClick(){
-    dispatch(userAdded({name: "hank"}))
+  useEffect(()=>{
+    fetch('/me')
+    .then(r => r.json())
+    .then(r => dispatch(userAdded(r)))
+  }, [])
+
+  function handleLogout(){
+    fetch('/logout', {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      }})
+    .then(r => {if(r.ok){dispatch(userRemoved())}})
   }
 
   return (
     <div className="App">
-      <p>{user? user.name: "no User"}</p>
-      
-      <p>Hello World!</p>
-      <button onClick={handleClick}>click me</button>
+      {user.id? <p>Welcome {user.name}</p>:<LandingPage />}
+      <button onClick={handleLogout}>Log Out</button>
     </div>
   );
 }
