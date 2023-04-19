@@ -1,4 +1,5 @@
 import React, {useEffect} from "react";
+import GameCard from "./GameCard";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchGames } from "../features/gamesSlice";
 
@@ -9,12 +10,12 @@ function JoinGame(){
         dispatch(fetchGames())
     },[])
 
-    const listOfGames = games.map(game => <li>{game.game_name}</li>)
+    const gameCards = games.map(game => <GameCard game={game} key={game.id}/>)
 
     return (
         <div>
             <h2>Join A Game</h2>
-            {listOfGames}
+            {gameCards}
         </div>
     )
 }

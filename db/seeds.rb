@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-test_user = User.create(name: "test", email: "test@example.net", password: "testPassword")
+test_user = User.create(name: "test", email: "test@example.net", password: "testpassword")
 
 test_game = Game.create(game_name: "testGame", host_id: test_user.id, game_end: DateTime.now.next_week)
 

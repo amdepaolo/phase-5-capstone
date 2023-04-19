@@ -10,7 +10,7 @@ const usersSlice = createSlice({
             return state
         },
         userRemoved(state) {
-            state = {id:null}
+            state = {id: null}
             return state
         }
     }
