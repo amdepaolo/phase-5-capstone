@@ -6,8 +6,14 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+puts "Seeding"
+
 test_user = User.create(name: "test", email: "test@example.net", password: "testpassword")
 
 test_game = Game.create(game_name: "testGame", host_id: test_user.id, game_end: DateTime.now.next_week)
 
-Player.create(game_id: test_game.id, user_id: test_user.id)
+test_player = Player.create(game_id: test_game.id, user_id: test_user.id)
+
+test_question = Question.create(left_choice: "Have a kangaroo pouch", right_choice: "Have a turtle shell", game_id: test_game.id, player_id: test_player.id)
+
+puts "Done seeding!"
