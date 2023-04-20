@@ -4,7 +4,7 @@ class CreateQuestions < ActiveRecord::Migration[7.0]
       t.string :left_choice
       t.string :right_choice
       t.integer :game_id
-      t.integer :player_id
+      t.integer :user_id
 
       t.timestamps
     end

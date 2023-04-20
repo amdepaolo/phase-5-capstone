@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   post '/users', to: 'users#create'
 
   resources :games, only: [:index, :show, :create] do
-    resources :players, only: [:create]
+    resources :players, only: [:create, :destroy]
+    resources :questions, only: [:create]
   end
 end
