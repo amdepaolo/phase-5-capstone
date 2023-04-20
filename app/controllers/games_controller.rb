@@ -2,12 +2,12 @@ class GamesController < ApplicationController
 
     def index
         games = Game.where('game_end>?', DateTime.now)
-        render json: games
+        render json: games, user_id: session[:user_id]
     end
 
     def show
         game = Game.find(params[:id])
-        render json: game
+        render json: game, serializer: GameQuestionSerializer, user_id: session[:user_id]
     rescue ActiveRecord::RecordNotFound
         render json: {error: "Game not found"}, status: :not_found
     end

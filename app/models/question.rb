@@ -9,8 +9,8 @@ class Question < ApplicationRecord
 
     def player_in_game
         game = self.game
-        unless game.players.find_by(user_id: self.user_id)
-            errors.add (:player_id, "Player not in this game")
+        if !game.players.find_by(user_id: self.user_id)
+            errors.add(:game_id, "Player not in this game")
         end
     end
 
@@ -24,6 +24,10 @@ class Question < ApplicationRecord
         self.votes.where(choice: "right").length
     end
 
+    def total_votes
+        self.votes.length
+    end
+
     def winner
         if self.left_votes > self.right_votes
             return "left"
@@ -34,12 +38,11 @@ class Question < ApplicationRecord
         end
     end
 
-    def win_percentage
-        left_percentage = (self.left_votes / self.votes.length) * 100
-        if left_percentage > 50
-            return left_percentage
-        else
-            return 100 - left_percentage
-        end
-    end
+    # def win_percentage
+    #     if self.winner == 'left'
+    #         return (self.left_votes / self.votes.length) * 100
+    #     else
+    #         return (self.right_votes / self.votes.length) * 100
+    #     end
+    # end
 end
