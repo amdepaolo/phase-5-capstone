@@ -4,6 +4,8 @@ import { userRemoved, userAdded } from "./features/usersSlice";
 import LandingPage from "./components/LandingPage";
 import HostGame from "./components/HostGame";
 import JoinGame from "./components/JoinGame";
+import {Route, Switch} from "react-router-dom"
+import MainQuestionPage from "./components/MainQuestionPage";
 
 function App() {
   const user = useSelector(state => state.users)
@@ -31,8 +33,18 @@ function App() {
       <h1>Rather Clever</h1>
       <p>Welcome {user.name}</p>
       <button onClick={handleLogout}>Log Out</button>
-      <HostGame />
-      <JoinGame />
+      <Switch>
+        <Route exact path = '/'>
+          <JoinGame />
+        </Route>
+        <Route path = '/host'>
+          <HostGame />
+        </Route>
+        <Route path = '/games/:id'>
+          <MainQuestionPage />
+        </Route>
+
+      </Switch>
     </div>
   );
 }

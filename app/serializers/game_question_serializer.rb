@@ -3,6 +3,7 @@ class GameQuestionSerializer < ActiveModel::Serializer
   belongs_to :host
   has_many :questions
   
-  def :user_player
+  def user_player
     self.object.players.find_by(user_id: instance_options[:user_id] )
+  end
 end

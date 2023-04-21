@@ -14,6 +14,6 @@ test_game = Game.create(game_name: "testGame", host_id: test_user.id, game_end: 
 
 test_player = Player.create(game_id: test_game.id, user_id: test_user.id)
 
-test_question = Question.create(left_choice: "Have a kangaroo pouch", right_choice: "Have a turtle shell", game_id: test_game.id, player_id: test_player.id)
+test_question = Question.create(left_choice: "Have a kangaroo pouch", right_choice: "Have a turtle shell", game_id: test_game.id, user_id: test_user.id)
 
 puts "Done seeding!"

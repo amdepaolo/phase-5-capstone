@@ -21,7 +21,6 @@ function HostGame(){
     return(
         <div>
             <h2>Host A Game!</h2>
-
             <form onSubmit={handleSubmit}>
                 <p>Give your game a fun and memorable name so your friends can find it</p>
                 <label>Game Name: </label>
