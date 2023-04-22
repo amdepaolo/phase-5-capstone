@@ -3,7 +3,15 @@ import React from "react";
 function QuestionVote({question}){
 
     function vote(choice){
-        console.log(choice)
+        fetch('/games/'+question.game_id+'/questions/'+question.id+'/vote', {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({choice: choice}),
+          }).then(r => {if(r.ok){
+            r.json()
+            .then(r => console.log(r))}}) 
     }
 
     return(

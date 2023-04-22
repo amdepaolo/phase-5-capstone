@@ -7,8 +7,12 @@ const playSlice = createSlice({
         player: null,
         questions:[] },
     reducers: {
-        questionsAdded(state, action){
+        questionsCreated(state, action){
             state.questions = action.payload
+        },
+
+        questionAdded(state, action){
+            state.questions.push(action.payload)
         },
 
         playerAdded(state, action){
@@ -17,5 +21,5 @@ const playSlice = createSlice({
     }
 });
 
-export const {questionsAdded, playerAdded} = playSlice.actions
+export const {questionsCreated, questionAdded, playerAdded} = playSlice.actions
 export default playSlice.reducer;

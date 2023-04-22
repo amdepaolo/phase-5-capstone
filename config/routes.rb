@@ -6,6 +6,9 @@ Rails.application.routes.draw do
 
   resources :games, only: [:index, :show, :create] do
     resources :players, only: [:create, :destroy]
-    resources :questions, only: [:create]
+    resources :questions, only: [:create] do 
+      put "/vote", to: 'questions#vote'
+      patch "/vote", to: 'questions#vote'
+    end
   end
 end
