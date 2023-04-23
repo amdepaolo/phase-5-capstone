@@ -11,8 +11,8 @@ puts "Seeding"
 test_user = User.create(name: "test", email: "test@example.net", password: "testpassword")
 other_user = User.create(name: "friend", email: "example@example.net", password: "testpassword")
 
-test_game = Game.create(game_name: "testGame", host_id: test_user.id, game_end: DateTime.now.next_week)
-other_game = Game.create(game_name: "Your friends game", host_id: other_user.id, game_end: DateTime.now.next_week)
+test_game = Game.create(game_name: "testGame", host_id: test_user.id, game_end: DateTime.now + 7)
+other_game = Game.create(game_name: "Your friends game", host_id: other_user.id, game_end: DateTime.now + 7)
 
 test_player = Player.create(game_id: test_game.id, user_id: test_user.id)
 other_player = Player.create(game_id: other_game.id, user_id: other_user.id)

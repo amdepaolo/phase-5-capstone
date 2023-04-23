@@ -15,11 +15,19 @@ const playSlice = createSlice({
             state.questions.push(action.payload)
         },
 
+        questionUpdated(state, action){
+            const updatedQs = state.questions.map(q => {
+                if (q.id === action.payload.id) return action.payload
+                else return q
+            })
+            state.questions = updatedQs
+        },
+
         playerAdded(state, action){
             state.player = action.payload
         }
     }
 });
 
-export const {questionsCreated, questionAdded, playerAdded} = playSlice.actions
+export const {questionsCreated, questionAdded, playerAdded, questionUpdated} = playSlice.actions
 export default playSlice.reducer;
