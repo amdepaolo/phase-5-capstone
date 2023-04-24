@@ -2,19 +2,19 @@ class Question < ApplicationRecord
     validates :right_choice, presence: true
     validates :left_choice, presence: true
     validates :user_id, uniqueness: {scope: :game_id, message: "Already submitted for this game."}
-    validate :player_in_game
+    # validate :player_in_game
     belongs_to :game
     belongs_to :user
     has_many :votes, dependent: :destroy
+    has_many :funniest_votes, :class_name => "Player", :foreign_key => "funniest_vote"
+    has_many :ponderable_votes, :class_name => "Player", :foreign_key => "ponderable_vote"
 
     def player_in_game
         game = self.game
-        if !game.players.find_by(user_id: self.user_id)
+        unless game.players.find_by(user_id: self.user_id)
             errors.add(:game_id, "Player not in this game")
         end
     end
-
-
 
     def left_votes
         self.votes.where(choice: "left").length
@@ -38,11 +38,11 @@ class Question < ApplicationRecord
         end
     end
 
-    # def win_percentage
-    #     if self.winner == 'left'
-    #         return (self.left_votes / self.votes.length) * 100
-    #     else
-    #         return (self.right_votes / self.votes.length) * 100
-    #     end
-    # end
+   def funny_vote_count
+    self.funniest_votes.length
+   end
+
+   def ponder_vote_count
+    self.ponderable_votes.length
+   end
 end
