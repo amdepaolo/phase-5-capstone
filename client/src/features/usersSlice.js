@@ -3,7 +3,9 @@ import {createSlice} from "@reduxjs/toolkit"
 
 const usersSlice = createSlice({
     name: "users",
-    initialState: {id: null},
+    initialState: {
+        id: null, 
+        games: []},
     reducers: {
         userAdded(state, action){
             state = action.payload
