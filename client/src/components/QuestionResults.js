@@ -4,7 +4,10 @@ function QuestionResults({question}){
 
     function votePercentage(votes){
        const percent = (votes / question.total_votes )* 100
-       return percent + ` %`
+       if (percent === NaN){
+        return `0 %`
+       }
+       else return percent + ` %`
     }
 
     return(
