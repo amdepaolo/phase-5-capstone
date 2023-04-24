@@ -1,21 +1,27 @@
  import React, {useState} from "react";
+ import { useDispatch } from "react-redux";
+ import { questionAdded } from "../features/playSlice";
 
- function QuestionSubmit({player}){
-
+ function QuestionSubmit({game}){
+    const dispatch = useDispatch()
     const [leftChoice, setLeftChoice] = useState('')
     const [rightChoice, setRightChoice] = useState('')
 
     function handleSubmit(e){
         e.preventDefault();
         const questionObj = {left_choice: leftChoice, right_choice: rightChoice};
-        fetch('/games/'+player.game_id+'/questions', {
+        fetch('/games/'+game.id+'/questions', {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
             },
             body: JSON.stringify(questionObj),
-          }).then(r => r.json())
-          .then(r => dispatch(gamesAdded(r)))
+          }).then (r => {if(r.ok){
+            r.json()
+            .then(r => dispatch(questionAdded(r)
+            ))}else{
+                r.json().then(r => console.log(r))
+            }})
     }
 
     return (

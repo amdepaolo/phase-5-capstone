@@ -1,8 +1,8 @@
 class QuestionsController < ApplicationController
 
     def create
-        question = Question.create!(game_id: params[:game_id], user_id: session[:user_id] )
-        render json: quesion, status: :created
+        question = Question.create!(game_id: params[:game_id], user_id: session[:user_id], left_choice: params[:left_choice], right_choice: params[:right_choice])
+        render json: question, status: :created
     rescue ActiveRecord::RecordInvalid => invalid
         render json: {errors: invalid.record.errors}, status: :unprocessable_entity
     end

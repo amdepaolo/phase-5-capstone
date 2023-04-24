@@ -4,9 +4,14 @@ import {createSlice, createAsyncThunk} from "@reduxjs/toolkit"
 const playSlice = createSlice({
     name: "play",
     initialState: { 
-        player: null,
+        players: null,
         questions:[] },
     reducers: {
+        gameLoaded(state, action){
+            state = action.payload
+            return state
+        },
+
         questionsCreated(state, action){
             state.questions = action.payload
         },
@@ -29,5 +34,5 @@ const playSlice = createSlice({
     }
 });
 
-export const {questionsCreated, questionAdded, playerAdded, questionUpdated} = playSlice.actions
+export const {questionsCreated, questionAdded, playerAdded, questionUpdated, gameLoaded} = playSlice.actions
 export default playSlice.reducer;
