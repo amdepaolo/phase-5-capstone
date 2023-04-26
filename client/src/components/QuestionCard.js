@@ -4,7 +4,7 @@ function QuestionCard({question, handleClick}){
 
     return (
         <div onClick={()=>handleClick(question.id)}>
-            <p>{question.left_choice} or {question.right_choice}</p>
+            <p><b>{question.left_choice}</b> or <b>{question.right_choice}</b></p>
             <p> submitted by {question.submitted_by}</p>
         </div>
     )
