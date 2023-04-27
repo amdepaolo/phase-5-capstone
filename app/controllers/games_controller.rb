@@ -19,6 +19,13 @@ class GamesController < ApplicationController
         render json: game, status: :created
     end
 
-    private
+    def destroy
+        game = Game.find(params[:id])
+        if game.host_id == session[:user_id]
+            game.destroy
+            head :no_content
+        else render json: {error: "user does not have permission to end this game"}, status: :unauthorized
+        end
+    end
 
 end
