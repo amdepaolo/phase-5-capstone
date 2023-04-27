@@ -17,7 +17,7 @@ other_game = Game.create(game_name: "Your friends game", host_id: other_user.id,
 test_player = Player.create(game_id: test_game.id, user_id: test_user.id)
 other_player = Player.create(game_id: other_game.id, user_id: other_user.id)
 
-test_question = Question.create(left_choice: "Have a kangaroo pouch", right_choice: "Have a turtle shell", game_id: test_game.id, user_id: test_user.id)
-other_question = Question.create(left_choice: "Have a pizza as big as a house!", right_choice: "Have a mountain of french fries!", game_id: other_game.id, user_id: other_user.id)
+Question.create(left_choice: "Have a kangaroo pouch", right_choice: "Have a turtle shell", game_id: test_game.id, player_id: test_player.id)
+Question.create(left_choice: "Have a pizza as big as a house!", right_choice: "Have a mountain of french fries!", game_id: other_game.id, player_id: other_player.id)
 
 puts "Done seeding!"

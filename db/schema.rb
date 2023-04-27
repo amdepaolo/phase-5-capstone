@@ -35,7 +35,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_24_202427) do
     t.string "left_choice"
     t.string "right_choice"
     t.integer "game_id"
-    t.integer "user_id"
+    t.integer "player_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -50,7 +50,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_24_202427) do
 
   create_table "votes", force: :cascade do |t|
     t.integer "question_id"
-    t.integer "user_id"
+    t.integer "player_id"
     t.string "choice"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
