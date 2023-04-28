@@ -13,10 +13,10 @@ function QuestionResults({question}){
     let winnerText;
     switch(question.winner){
         case "left":
-            winnerText = `The group has spoken: They would rather` + question.left_choice
+            winnerText = `The group has spoken: They would rather ` + question.left_choice
             break;
         case "right":
-            winnerText = `The group has spoken: They would rather` + question.right_choice
+            winnerText = `The group has spoken: They would rather ` + question.right_choice
             break;
         default:
             winnerText = `It's a TIE!`

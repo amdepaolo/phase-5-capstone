@@ -3,59 +3,97 @@ import QuestionCard from "./QuestionCard";
 import QuestionVote from "./QuestionVote";
 import QuestionResults from "./QuestionResults";
 import QuestionSubmit from "./QuestionSubmit";
-import { Tabs, Tab } from '@mui/material';
+import { Tabs, Tab, Button } from '@mui/material';
 import {useSelector, useDispatch} from "react-redux"
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { gameLoaded } from "../features/playSlice";
+import { gamesRemoved } from "../features/gamesSlice";
 import { Link } from "react-router-dom";
+import QuestionSuperlatives from "./QuestionSuperlatives";
 
 function MainGamePage(){
     const game = useSelector(state => state.play)
     const {questions} = game
-    const [selectedId, setSelectedId] = useState()
+    const [selectedQ, setSelectedQ] = useState(null)
+    const [tabValue, setTabValue] = useState(1)
     const params = useParams();
+    const history = useHistory();
     const dispatch = useDispatch();
-    const [tabValue, setTabValue] = useState("Vote")
 
     useEffect(()=>{
         fetch(`/games/${params.id}`)
-        .then(r => r.json())
-        .then(r => dispatch(gameLoaded(r)))
-    },[])
+        .then(r => {if(r.ok){
+            r.json()
+            .then(r => dispatch(gameLoaded(r)))
+        } else {
+            window.alert("Game not found")
+        }})}, [])
 
+    const currentQuestion =  questions.find(q => q.id === selectedQ)
     const questionCards = questions.map(question => {
         return(
             <QuestionCard 
                 question={question} 
                 key={question.id}
-                handleClick ={setSelectedId}
+                handleClick ={setSelectedQ}
             />
         )
     })
 
-    const currentQuestion =  questions.find(q => q.id === selectedId)
+    function leaveGame(){
+        if(window.confirm("Leave Game? All your votes and submissions will be removed")){
+            fetch('/games/'+game.id+'/players/'+game.user_player.id, {
+                method: "DELETE",
+                headers: {
+                  "Content-Type": "application/json"
+                }})
+                .then(r => {if (r.ok){
+                    history.push('/')}})
+    }}
+
+    function deleteGame(){ 
+        if(window.confirm("Delete Game? This will remove the entire game, including other players submissions")){
+            fetch('/games/'+game.id, {
+                method: "DELETE",
+                headers: {
+                  "Content-Type": "application/json"
+                }})
+                .then(r => {if (r.ok){
+                    dispatch(gamesRemoved(game.id))
+                    history.push('/')
+                }})
+
+    }}
+
+    const leaveButton = <Button onClick={leaveGame}>Leave Game</Button>
+    const deleteButton = <Button onClick={deleteGame}>Delete This Game</Button>
 
 
     return(
         <div>
-            <Tabs>
-                <Tab label="Submit" onClick={()=> setTabValue("Submit")}/>
-                <Tab label="Vote" onClick={()=> setTabValue("Vote")}/>
-                <Tab  label="Results" onClick={()=> setTabValue("Results")}/>
+            <h1>{game.game_name}</h1>
+            <h2>Hosted by {game.user_hosting? "you": game.host.name}</h2>
+            {game.user_hosting? deleteButton: leaveButton}
+            <Tabs value={tabValue}>
+                <Tab label="Submit" onClick={()=> setTabValue(0)} value={0}/>
+                <Tab label="Vote" onClick={()=> setTabValue(1)} value={1}/>
+                <Tab  label="Results" onClick={()=> setTabValue(2)} value={2}/>
             </Tabs>
-            <div hidden={tabValue !== "Submit"}>
+            <div hidden={tabValue !== 0}>
                 <QuestionSubmit game={game}/>
             </div>
-            <div hidden={tabValue !== "Vote"}>
+            <div hidden={tabValue !== 1}>
                 <h2> Ponder and Vote! </h2>
                 <p>Look at the choices your other players have provided</p>
                 {questionCards}
-                {currentQuestion? <QuestionVote question={currentQuestion}/>: ''}
+                {selectedQ? <QuestionVote question={currentQuestion}/>: ''}
+                {selectedQ? <QuestionResults question={currentQuestion}/>: ''}
             </div>
-            <div hidden={tabValue !== "Results"} value="Results">
+            <div hidden={tabValue !== 2} value="Results">
                 <h2>Results</h2>
                 {questionCards}
-                {currentQuestion? <QuestionResults question={currentQuestion}/>: ''}
+                {selectedQ? <QuestionResults question={currentQuestion}/>: ''}
+                <QuestionSuperlatives game={game} />
             </div>
             <Link to='/'>Back to games</Link>
         </div>
