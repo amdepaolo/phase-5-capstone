@@ -21,7 +21,7 @@ class PlayersController < ApplicationController
 
     private
     def player_params
-        params.permite(:funniest_vote, :ponderable_vote)
+        params.permit(:funniest_vote, :ponderable_vote)
     end
 
 

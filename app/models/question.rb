@@ -44,4 +44,10 @@ class Question < ApplicationRecord
    def ponder_vote_count
     self.ponderable_votes.length
    end
+
+   def serialize_self
+    options = {serializer: QuestionSerializer}
+    serialized = ActiveModelSerializers::SerializableResource.new(self, options)
+    serialized.as_json
+   end
 end

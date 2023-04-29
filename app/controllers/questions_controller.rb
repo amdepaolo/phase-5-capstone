@@ -1,17 +1,22 @@
 class QuestionsController < ApplicationController
 
     def create
-        question = Question.create!(game_id: params[:game_id], user_id: session[:user_id], left_choice: params[:left_choice], right_choice: params[:right_choice])
+        game = Game.find(params[:game_id])
+        game.questions.create(question_params)
         render json: question, status: :created
     rescue ActiveRecord::RecordInvalid => invalid
         render json: {errors: invalid.record.errors}, status: :unprocessable_entity
     end
 
+
+
     def vote
+        player = Game.find(params[:game_id]).players.find_by(user_id: session[:user_id])
         question = Question.find(params[:question_id])
-        vote = question.votes.find_or_initialize_by(user_id: session[:user_id])
+        vote = question.votes.find_or_initialize_by(player_id: player.id)
         vote.choice = params[:choice]
-        vote.save
+        vote.save!
+        ActionCable.server.broadcast("game_room_#{question.game_id}", question.serialize_self)
         render json: question, status: :accepted
     rescue ActiveRecord::RecordNotFound
         render json: {error: "Question not found"}, status: :not_found
@@ -23,7 +28,7 @@ class QuestionsController < ApplicationController
 
     private
     def question_params
-        params.permit(:left_choice, :right_choice)
+        params.permit(:left_choice, :right_choice, :player_id)
     end
 
     def vote_params
