@@ -10,6 +10,7 @@ import { gameLoaded } from "../features/playSlice";
 import { gamesRemoved } from "../features/gamesSlice";
 import { Link } from "react-router-dom";
 import QuestionSuperlatives from "./QuestionSuperlatives";
+import GameSocket from "./GameSocket";
 
 function MainGamePage(){
     const game = useSelector(state => state.play)
@@ -71,6 +72,7 @@ function MainGamePage(){
 
     return(
         <div>
+            <GameSocket gameId={game.id}/>
             <h1>{game.game_name}</h1>
             <h2>Hosted by {game.user_hosting? "you": game.host.name}</h2>
             {game.user_hosting? deleteButton: leaveButton}
