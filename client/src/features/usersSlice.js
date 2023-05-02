@@ -1,4 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit"
+import { gamesAdded } from "./gamesSlice"
 
 
 const usersSlice = createSlice({
@@ -12,9 +13,16 @@ const usersSlice = createSlice({
             return state
         },
         userRemoved(state) {
-            state = {id: null}
+            state = {id: null, games:[]}
             return state
         }
+    },
+
+    extraReducers: {
+        [gamesAdded](state, action){
+            state.games.push(action.payload)
+        }
+        
     }
 
 })

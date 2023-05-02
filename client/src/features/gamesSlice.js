@@ -11,6 +11,10 @@ const gamesSlice = createSlice({
     reducers: {
         gamesAdded(state, action){
             state.push(action.payload)
+        },
+
+        gamesRemoved(state, action){
+            state.filter(game => game.id !== action.payload)
         }
     },
     extraReducers: {
@@ -21,6 +25,6 @@ const gamesSlice = createSlice({
     }
 });
 
-export const {gamesAdded} = gamesSlice.actions
+export const {gamesAdded, gamesRemoved} = gamesSlice.actions
 export default gamesSlice.reducer;
 

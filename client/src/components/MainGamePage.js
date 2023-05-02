@@ -10,6 +10,7 @@ import { gameLoaded } from "../features/playSlice";
 import { gamesRemoved } from "../features/gamesSlice";
 import { Link } from "react-router-dom";
 import QuestionSuperlatives from "./QuestionSuperlatives";
+import ResultsPage from "./ResultsPage";
 import GameSocket from "./GameSocket";
 
 function MainGamePage(){
@@ -93,11 +94,10 @@ function MainGamePage(){
             </div>
             <div hidden={tabValue !== 2} value="Results">
                 <h2>Results</h2>
-                {questionCards}
-                {selectedQ? <QuestionResults question={currentQuestion}/>: ''}
+                <ResultsPage />
                 <QuestionSuperlatives game={game} />
             </div>
-            <Link to='/'>Back to games</Link>
+            <Link to='/'>Back Home</Link>
         </div>
     )
 }

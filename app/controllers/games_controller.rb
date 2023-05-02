@@ -16,7 +16,7 @@ class GamesController < ApplicationController
         game_end = DateTime.now.next_week
         game = Game.create!(host_id: session[:user_id], game_name: params[:game_name], game_end: game_end)
         player = Player.create(user_id: session[:user_id], game_id: game.id)
-        render json: game, status: :created
+        render json: game, status: :created, user_id: session[:user_id]
     end
 
     def destroy
@@ -29,3 +29,4 @@ class GamesController < ApplicationController
     end
 
 end
+

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { questionUpdated } from "../features/playSlice";
+import { questionAdded, questionUpdated } from "../features/playSlice";
 import ActionCable from 'actioncable'
 
 
@@ -15,10 +15,22 @@ function GameSocket({gameId}){
           setSocketMessage("connected 🟢");
         },
         disconnected: function() {
+          console.log("disconnected")
           setSocketMessage("disconnected");
         },
-        received: function (received_data) {
-          dispatch(questionUpdated(received_data))
+        received: function(received_data) {
+          console.log(received_data)
+          switch (received_data.type){
+            case "question updated":
+              dispatch(questionUpdated(received_data.question))
+              break;
+            case "question added":
+              dispatch(questionAdded(received_data.question))
+              break;
+            default:
+              console.log(received_data)
+              break;
+          }
         }
       })
 

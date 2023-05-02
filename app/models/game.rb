@@ -1,7 +1,7 @@
 class Game < ApplicationRecord
     has_many :players, dependent: :destroy
     has_many :users, through: :players 
-    has_many :questions
+    has_many :questions, dependent: :destroy
     belongs_to :host, :class_name => "User", :foreign_key => "host_id"
 
     def game_active?

@@ -3,7 +3,9 @@ import {createSlice, createAsyncThunk} from "@reduxjs/toolkit"
 
 const playSlice = createSlice({
     name: "play",
-    initialState: { 
+    initialState: {
+        host: {name: ""} ,
+        user_player: {id: 0},
         players: null,
         questions:[] },
     reducers: {
@@ -17,7 +19,9 @@ const playSlice = createSlice({
         },
 
         questionAdded(state, action){
-            state.questions.push(action.payload)
+            if (state.questions.find(q => q.id === action.payload.id)){
+                return
+            } else state.questions.push(action.payload)
         },
 
         questionUpdated(state, action){

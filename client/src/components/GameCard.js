@@ -1,11 +1,12 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { playerAdded } from "../features/playSlice";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function GameCard({game}){
 
     const dispatch = useDispatch()
+    const history = useHistory()
 
     function handleJoin(){
         fetch('/games/'+game.id+'/players', {
@@ -15,6 +16,7 @@ function GameCard({game}){
             },
           }).then(r => r.json())
           .then(r => dispatch(playerAdded(r)))
+        history.push('/games/'+game.id)
     }
 
     const button = game.joined? <Link to={`/games/${game.id}`}>Play</Link>: <button onClick={handleJoin}>Join Game?</button>

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Select, MenuItem, Button,  } from "@mui/material"
+import { Select, MenuItem, Button  } from "@mui/material"
 
 function QuestionSuperlatives({game}){
     const [superlativeVote, setSuperlativeVote] = useState({funniest_vote: 0, ponderable_vote: 0})
@@ -33,7 +33,7 @@ function QuestionSuperlatives({game}){
     return(
         <div>
             <h2>Pick your favorites:</h2>
-            <p>From the "Would You Rathers" your other players have submitted pick the your favorites in each of the two categories. <b>Note: You can't pick your own submission, so don't even try.</b></p>
+            <p>From the "Would You Rathers" your other players have submitted pick the your favorites in each of the two categories. <b>Note: You can't pick your own submission.</b></p>
             <h3>Funniest:</h3>
             <p>Easy enough to explain. Of the submissions provided, pick the one that made you laugh the hardest</p>
             <Select 
