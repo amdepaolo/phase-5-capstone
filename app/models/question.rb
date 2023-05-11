@@ -3,7 +3,7 @@ class Question < ApplicationRecord
     validates :left_choice, presence: true
     validates :player_id, uniqueness: {scope: :game_id, message: "Already submitted for this game."}
     validate :player_in_game
-    validate :game_active
+    validate :game_active_validation
     belongs_to :game
     belongs_to :player
     has_many :votes, dependent: :destroy
@@ -16,8 +16,8 @@ class Question < ApplicationRecord
         end
     end
 
-    def game_active
-        unless self.game.game_end > DateTime.now
+    def game_active_validation
+        unless self.game.game_active?
             errors.add(:game_id, "Game not active")
         end
     end
