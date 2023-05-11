@@ -1,7 +1,9 @@
 import React, {useState} from "react";
 import { Select, MenuItem, Button  } from "@mui/material"
+import { useSelector } from "react-redux";
 
-function QuestionSuperlatives({game}){
+function QuestionSuperlatives(){
+    const game = useSelector(state => state.play)
     const [superlativeVote, setSuperlativeVote] = useState({funniest_vote: 0, ponderable_vote: 0})
     const {questions, user_player} = game
     const questionsMinusUser = questions.filter(q => q.player_id !== user_player.id)

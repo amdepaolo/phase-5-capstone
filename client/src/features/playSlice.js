@@ -1,4 +1,4 @@
-import {createSlice, createAsyncThunk} from "@reduxjs/toolkit"
+import {createSlice} from "@reduxjs/toolkit"
 
 
 const playSlice = createSlice({
@@ -30,10 +30,6 @@ const playSlice = createSlice({
                 else return q
             })
             state.questions = updatedQs
-        },
-
-        playerAdded(state, action){
-            state.player = action.payload
         }
     }
 });

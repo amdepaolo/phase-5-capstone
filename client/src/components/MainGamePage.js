@@ -7,7 +7,7 @@ import { Tabs, Tab, Button } from '@mui/material';
 import {useSelector, useDispatch} from "react-redux"
 import { useParams, useHistory } from "react-router-dom";
 import { gameLoaded } from "../features/playSlice";
-import { gamesRemoved } from "../features/gamesSlice";
+import { gamesRemoved, gamesUserLeft } from "../features/gamesSlice";
 import { Link } from "react-router-dom";
 import QuestionSuperlatives from "./QuestionSuperlatives";
 import ResultsPage from "./ResultsPage";
@@ -50,6 +50,7 @@ function MainGamePage(){
                   "Content-Type": "application/json"
                 }})
                 .then(r => {if (r.ok){
+                    dispatch(gamesUserLeft(game.id))
                     history.push('/')}})
     }}
 

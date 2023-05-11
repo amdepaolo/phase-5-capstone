@@ -15,6 +15,20 @@ const gamesSlice = createSlice({
 
         gamesRemoved(state, action){
             state.filter(game => game.id !== action.payload)
+        },
+
+        gamesUserLeft(state, action){
+            state.forEach(game => {
+                if(game.id === action.payload){
+                    game.joined = false
+                }else return game})
+        },
+
+        gameUserAdded(state, action){
+            state.forEach(game => {
+                if(game.id === action.payload.id){
+                    game.joined = true
+                }else return game})
         }
     },
     extraReducers: {
@@ -25,6 +39,6 @@ const gamesSlice = createSlice({
     }
 });
 
-export const {gamesAdded, gamesRemoved} = gamesSlice.actions
+export const {gamesAdded, gamesRemoved, gamesUserLeft, gameUserAdded} = gamesSlice.actions
 export default gamesSlice.reducer;
 
