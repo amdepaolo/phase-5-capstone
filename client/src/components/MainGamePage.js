@@ -12,6 +12,8 @@ import { Link } from "react-router-dom";
 import QuestionSuperlatives from "./QuestionSuperlatives";
 import ResultsPage from "./ResultsPage";
 import GameSocket from "./GameSocket";
+import Grid from '@mui/material/Unstable_Grid2';
+import Container from "@mui/material/Container";
 
 function MainGamePage(){
     const game = useSelector(state => state.play)
@@ -73,12 +75,20 @@ function MainGamePage(){
 
 
     return(
-        <div>
-            <GameSocket gameId={game.id}/>
-            <h1>{game.game_name}</h1>
-            <h2>Hosted by {game.user_hosting? "you": game.host.name}</h2>
-            {game.user_hosting? deleteButton: leaveButton}
-            <Tabs value={tabValue}>
+        <Container>
+            <Grid container spacing={1}>
+                <Grid xs={4}>
+                    <h1>{game.game_name}</h1>
+                </Grid>
+                <Grid xs={2}>
+                    <h2>Hosted by {game.user_hosting? "you": game.host.name}</h2>
+                </Grid>
+                <Grid xs={2}>
+                    <GameSocket gameId={game.id}/>
+                    {game.user_hosting? deleteButton: leaveButton}
+                </Grid>
+            </Grid>
+            <Tabs value={tabValue} centered>
                 <Tab label="Submit" onClick={()=> setTabValue(0)} value={0}/>
                 <Tab label="Vote" onClick={()=> setTabValue(1)} value={1}/>
                 <Tab  label="Results" onClick={()=> setTabValue(2)} value={2}/>
@@ -87,11 +97,21 @@ function MainGamePage(){
                 <QuestionSubmit game={game}/>
             </div>
             <div hidden={tabValue !== 1}>
-                <h2> Ponder and Vote! </h2>
-                <p>Look at the choices your other players have provided</p>
-                {questionCards}
-                {selectedQ? <QuestionVote question={currentQuestion}/>: ''}
-                {selectedQ? <QuestionResults question={currentQuestion}/>: ''}
+                <Grid container spacing={1}>
+                    <Grid xs={12}>
+                    <h2> Ponder and Vote! </h2>
+                    <p>Look at the choices your other players have provided</p>
+                    </Grid>
+                    <Grid xs={3} justi>
+                        {questionCards}
+                    </Grid>
+                    <Grid xs={6}>
+                        {selectedQ? <QuestionVote question={currentQuestion}/>: ''}
+                    </Grid>
+                    <Grid xs ={3}>
+                        {selectedQ? <QuestionResults question={currentQuestion}/>: ''}
+                    </Grid>
+                </Grid>
             </div>
             <div hidden={tabValue !== 2} value="Results">
                 <h2>Results</h2>
@@ -99,7 +119,7 @@ function MainGamePage(){
                 <QuestionSuperlatives game={game} />
             </div>
             <Link to='/'>Back Home</Link>
-        </div>
+        </Container>
     )
 }
 

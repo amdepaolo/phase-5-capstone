@@ -16,7 +16,7 @@ function NavBar(){
       }
 
     return(
-        <div>
+        <div id="navBar">
             <NavLink to="/">
                 Home 
             </NavLink>

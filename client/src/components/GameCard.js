@@ -24,7 +24,7 @@ function GameCard({game}){
     const button = game.joined? <Link to={`/games/${game.id}`}>Play</Link>: <button onClick={handleJoin}>Join Game?</button>
 
     return (
-        <div>
+        <div className='card'>
             <h4>{game.game_name}</h4>
             <h5>Hosted by {game.host.name}</h5>
             <p>Ending in {game.days_to_end} days</p>

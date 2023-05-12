@@ -19,12 +19,12 @@ function QuestionVote({question}){
     }
 
     return(
-        <div>
+        <div className="question-vote">
             <h3>Would You Rather...</h3>
             <span>
-                <button onClick={()=>vote("left")}><h4>{question.left_choice}</h4></button>
-                <h4>OR...</h4>
-                <button onClick={()=>vote("right")}><h4>{question.right_choice}</h4></button>
+                <button className="question-vote" onClick={()=>vote("left")}>{question.left_choice}</button>
+                <span>  OR... </span> 
+                <button className="question-vote" onClick={()=>vote("right")}>{question.right_choice}</button>
             </span>
         </div>
     )
