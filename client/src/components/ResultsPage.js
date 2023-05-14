@@ -1,6 +1,8 @@
 import React from "react";
 import QuestionResults from "./QuestionResults";
 import { useSelector } from "react-redux";
+import Grid from '@mui/material/Unstable_Grid2';
+import Container from "@mui/material/Container";
 
 function ResultsPage(){
     const game = useSelector(state => state.play);
@@ -11,16 +13,23 @@ function ResultsPage(){
     const ponderedText = most_pondered_q? <h4>{most_pondered_q.left_choice} or {most_pondered_q.right_choice}</h4>: "No Winner Yet"
 
     return(
-        <div>
-            <h2>Top Submissions</h2>
-            <h3>Funniest:</h3>
-            {funniestText}
-            
-            <h3>Most Ponderable:</h3>
-            {ponderedText}
-            <h2>Vote Results:</h2>
-            {resultsList}
-        </div>
+
+        <Container>
+            <Grid container spacing={1}>
+                <Grid xs={3}>
+                    <h3>Funniest:</h3>
+                    {funniestText}
+                </Grid>
+                <Grid xs={3}>
+                    <h3>Most Ponderable:</h3>
+                    {ponderedText}
+                </Grid>
+                <Grid xs={6}>
+                    <h2>Vote Results:</h2>
+                    {resultsList}
+                </Grid>
+            </Grid>
+        </Container>
     )
 }
 

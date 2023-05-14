@@ -19,7 +19,7 @@ function GameSocket({gameId}){
           setSocketMessage("disconnected");
         },
         received: function(received_data) {
-          console.log(received_data)
+          setSocketMessage("connected 🟢")
           switch (received_data.type){
             case "question updated":
               dispatch(questionUpdated(received_data.question))
