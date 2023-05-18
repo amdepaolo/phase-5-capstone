@@ -4,6 +4,7 @@ class Player < ApplicationRecord
     has_one :question, dependent: :destroy
     validates :user_id, uniqueness: {scope: :game_id, message: "already a player in that game"}
     validate :game_active_validation
+    has_many :votes, dependent: :destroy
 
     def host
         self.user_id === self.game.host_id
