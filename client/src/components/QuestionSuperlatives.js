@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { Select, MenuItem, Button  } from "@mui/material"
+import Grid from '@mui/material/Unstable_Grid2';
 import { useSelector } from "react-redux";
 
 function QuestionSuperlatives(){
@@ -33,31 +34,39 @@ function QuestionSuperlatives(){
 
 
     return(
-        <div>
-            <h2>Pick your favorites:</h2>
-            <p>From the "Would You Rathers" your other players have submitted pick the your favorites in each of the two categories. <b>Note: You can't pick your own submission.</b></p>
-            <h3>Funniest:</h3>
-            <p>Easy enough to explain. Of the submissions provided, pick the one that made you laugh the hardest</p>
-            <Select 
-                value={superlativeVote.funniest_vote}
-                label="Funniest"
-                onChange={funniestChange}
-            >
-                <MenuItem value={0}> Funniest </MenuItem>
-                {choices}
-            </Select>
-            <h3>Most Ponderable:</h3>
-            <p>For this category, pick the submission that made you really stop and consider your options</p>
-            <Select 
-                value={superlativeVote.ponderable_vote}
-                label="Ponderable"
-                onChange={ponderableChange}
-            >
-                <MenuItem value={0}> Ponderable </MenuItem>
-                {choices}
-            </Select>
-            <Button onClick={saveChoices}>Save Choices</Button>
-        </div>
+        <Grid container spacing={1}>
+            <Grid xs={9}>
+                <h2>Pick your favorites:</h2>
+                <p>From the "Would You Rathers" your other players have submitted pick the your favorites in each of the two categories. <b>Note: You can't pick your own submission.</b></p>
+            </Grid>
+            <Grid xs={4}>
+                <h3>Funniest:</h3>
+                <p>Easy enough to explain. Of the submissions provided, pick the one that made you laugh the hardest</p>
+                <Select 
+                    value={superlativeVote.funniest_vote}
+                    label="Funniest"
+                    onChange={funniestChange}
+                >
+                    <MenuItem value={0}> Funniest </MenuItem>
+                    {choices}
+                </Select>
+            </Grid>
+            <Grid xs={4}>
+                <h3>Most Ponderable:</h3>
+                <p>For this category, pick the submission that made you really stop and consider your options</p>
+                <Select 
+                    value={superlativeVote.ponderable_vote}
+                    label="Ponderable"
+                    onChange={ponderableChange}
+                >
+                    <MenuItem value={0}> Ponderable </MenuItem>
+                    {choices}
+                </Select>
+            </Grid>
+            <Grid xs={4}>
+                <Button onClick={saveChoices}>Save Choices</Button>
+            </Grid>
+        </Grid>
     )
 }
 

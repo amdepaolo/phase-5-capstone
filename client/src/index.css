@@ -28,7 +28,7 @@ body {
   background-color: white;
 }
 
-.question-card {
+.card {
   border: 2px solid darkblue;
   text-align: center;
   background-color: rgb(202, 200, 200);
@@ -38,7 +38,7 @@ body {
   padding: 0.5rem;
 }
 
-.question-card:hover {
+.card:hover {
   background-color: lightblue;
   cursor: pointer;
 }

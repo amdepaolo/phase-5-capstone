@@ -7,7 +7,7 @@ function QuestionResults({question}){
        if (Number.isNaN(percent)){
         return `0 %`
        }
-       else return percent + ` %`
+       else return Math.round(percent) + ` %`
     }
 
     let winnerText;

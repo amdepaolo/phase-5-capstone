@@ -13,7 +13,6 @@ import QuestionSuperlatives from "./QuestionSuperlatives";
 import ResultsPage from "./ResultsPage";
 import GameSocket from "./GameSocket";
 import Grid from '@mui/material/Unstable_Grid2';
-import Container from "@mui/material/Container";
 
 function MainGamePage(){
     const game = useSelector(state => state.play)
@@ -75,7 +74,7 @@ function MainGamePage(){
 
 
     return(
-        <Container>
+        <div>
             <Grid container spacing={1}>
                 <Grid xs={4}>
                     <h1>{game.game_name}</h1>
@@ -114,12 +113,12 @@ function MainGamePage(){
                 </Grid>
             </div>
             <div hidden={tabValue !== 2} value="Results">
-                <h2>Results</h2>
-                <ResultsPage />
                 <QuestionSuperlatives game={game} />
+                <h2>Full Results</h2>
+                <ResultsPage />
             </div>
             <Link to='/'>Back Home</Link>
-        </Container>
+        </div>
     )
 }
 

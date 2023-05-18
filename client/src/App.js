@@ -9,6 +9,7 @@ import MainGamePage from "./components/MainGamePage";
 import UserProfile from "./components/UserProfile";
 import NavBar from "./components/NavBar";
 import AboutTheGame from "./components/AboutTheGame";
+import Container from "@mui/material/Container";
 
 function App() {
   const user = useSelector(state => state.users)
@@ -26,24 +27,26 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-      <h1>Rather Clever</h1>
-      <Switch>
-        <Route exact path = '/'>
-          <UserProfile />
-        </Route>
-        <Route path = '/host'>
-          <HostGame />
-        </Route>
-        <Route path = '/join'>
-          <JoinGame />
-        </Route>
-        <Route path = '/about'>
-          <AboutTheGame />
-        </Route>
-        <Route path = '/games/:id'>
-          <MainGamePage />
-        </Route>
-      </Switch>
+      <Container>
+        <h1>Rather Clever</h1>
+        <Switch>
+          <Route exact path = '/'>
+            <UserProfile />
+          </Route>
+          <Route path = '/host'>
+            <HostGame />
+          </Route>
+          <Route path = '/join'>
+            <JoinGame />
+          </Route>
+          <Route path = '/about'>
+            <AboutTheGame />
+          </Route>
+          <Route path = '/games/:id'>
+            <MainGamePage />
+          </Route>
+        </Switch>
+      </Container>
     </div>
   );
 
