@@ -5,7 +5,7 @@ const playSlice = createSlice({
     name: "play",
     initialState: {
         host: {name: ""} ,
-        user_player: {id: 0},
+        user_player: {id: 0, votes:[]},
         players: null,
         questions:[] },
     reducers: {
@@ -30,9 +30,16 @@ const playSlice = createSlice({
                 else return q
             })
             state.questions = updatedQs
+        },
+
+        voteUpdated(state, action){
+            const existingVote = state.user_player.votes.find(vote => vote.question_id === action.payload.question_id)
+            if (existingVote){
+                existingVote.choice = action.payload.choice
+            } else state.user_player.votes.push(action.payload)
         }
     }
 });
 
-export const {questionsCreated, questionAdded, playerAdded, questionUpdated, gameLoaded} = playSlice.actions
+export const {questionsCreated, questionAdded, playerAdded, questionUpdated, gameLoaded, voteUpdated} = playSlice.actions
 export default playSlice.reducer;

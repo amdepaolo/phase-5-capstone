@@ -6,6 +6,8 @@ class GameQuestionSerializer < ActiveModel::Serializer
   
   def user_player
     player = self.object.players.find_by(user_id: instance_options[:user_id] )
+    options = {serializer: UserPlayerSerializer}
+    serialized = ActiveModelSerializers::SerializableResource.new(player, options)
   end
 
   def user_hosting

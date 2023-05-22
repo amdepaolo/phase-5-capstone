@@ -18,7 +18,7 @@ class QuestionsController < ApplicationController
         vote.choice = params[:choice]
         vote.save!
         ActionCable.server.broadcast("game_room_#{question.game_id}", {type: "question updated", question: question.serialize_self})
-        render json: question, status: :accepted
+        render json: {vote: vote, question: question.serialize_self}, status: :accepted
     rescue ActiveRecord::RecordNotFound
         render json: {error: "Question not found"}, status: :not_found
     rescue ActiveRecord::RecordInvalid => invalid

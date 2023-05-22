@@ -1,8 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { questionUpdated } from "../features/playSlice";
+import { questionUpdated, voteUpdated } from "../features/playSlice";
 
-function QuestionVote({question}){
+function QuestionVote({question, userVote}){
     const dispatch = useDispatch()
 
     function vote(choice){
@@ -14,7 +14,10 @@ function QuestionVote({question}){
             body: JSON.stringify({choice: choice}),
           }).then(r => {if(r.ok){
             r.json()
-            .then(r => dispatch(questionUpdated(r)))
+            .then(r => {
+                dispatch(questionUpdated(r.question))
+                dispatch(voteUpdated(r.vote))
+            })
         }}) 
     }
 
@@ -22,9 +25,9 @@ function QuestionVote({question}){
         <div className="question-vote">
             <h3>Would You Rather...</h3>
             <span>
-                <button className="question-vote" onClick={()=>vote("left")}>{question.left_choice}</button>
+                <button className={userVote && userVote.choice==="left"? "vote-selected": "vote-unselected"} onClick={()=>vote("left")}>{question.left_choice}</button>
                 <span>  OR... </span> 
-                <button className="question-vote" onClick={()=>vote("right")}>{question.right_choice}</button>
+                <button className={userVote && userVote.choice==="right"? "vote-selected": "vote-unselected"} onClick={()=>vote("right")}>{question.right_choice}</button>
             </span>
         </div>
     )

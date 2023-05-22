@@ -53,3 +53,16 @@ body {
   padding: 0.5%;
   text-align: center;
 }
+
+.vote-selected {
+  font-size: 13pt;
+  padding: 0.5%;
+  text-align: center;
+  background-color: lightblue;
+}
+
+.vote-unselected {
+  font-size: 13pt;
+  padding: 0.5%;
+  text-align: center;
+}

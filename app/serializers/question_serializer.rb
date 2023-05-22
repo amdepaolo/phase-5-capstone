@@ -4,4 +4,5 @@ class QuestionSerializer < ActiveModel::Serializer
   def submitted_by
     self.object.player.user.name
   end
+
 end

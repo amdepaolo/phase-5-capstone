@@ -16,7 +16,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 
 function MainGamePage(){
     const game = useSelector(state => state.play)
-    const {questions} = game
+    const {questions, user_player} = game
     const [selectedQ, setSelectedQ] = useState(null)
     const [tabValue, setTabValue] = useState(1)
     const params = useParams();
@@ -33,6 +33,7 @@ function MainGamePage(){
         }})}, [])
 
     const currentQuestion =  questions.find(q => q.id === selectedQ)
+    const currentQVote = user_player.votes.find(vote => vote.question_id === selectedQ)
     const questionCards = questions.map(question => {
         return(
             <QuestionCard 
@@ -105,7 +106,7 @@ function MainGamePage(){
                         {questionCards}
                     </Grid>
                     <Grid xs={6}>
-                        {selectedQ? <QuestionVote question={currentQuestion}/>: ''}
+                        {selectedQ? <QuestionVote question={currentQuestion} userVote={currentQVote}/>: ''}
                     </Grid>
                     <Grid xs ={3}>
                         {selectedQ? <QuestionResults question={currentQuestion}/>: ''}
