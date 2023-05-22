@@ -9,9 +9,18 @@ function SignUp({swapForm}){
     const [confirmation, setConfirmation] = useState('')
     const dispatch = useDispatch();
 
+    function errorAlert(errorObject){
+        let errorText =''
+        for (const key in errorObject) {
+            errorText +=`${key} error: ${errorObject[key].join(",")} \n`
+          }
+        window.alert(errorText)
+    }
+
     function handleSubmit(e){
         e.preventDefault()
         const newUserObj = { email: email, name: name, password: password, password_confirmation: confirmation};
+        console.log( JSON.stringify(newUserObj))
         fetch('/users', {
             method: "POST",
             headers: {
@@ -20,8 +29,9 @@ function SignUp({swapForm}){
             body: JSON.stringify(newUserObj),
           })
         .then(r => {if (r.ok){
-            r.json().then(dispatch(userAdded(r)))
-          } else {window.alert("Sign-up Error. Check entered information")}
+            r.json().then( r=>dispatch(userAdded(r)))
+          } else { r.json().then(r=> errorAlert(r.errors))
+        }
         })
     }
 

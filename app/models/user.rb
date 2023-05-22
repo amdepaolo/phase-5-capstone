@@ -3,6 +3,6 @@ class User < ApplicationRecord
     has_many :players, dependent: :destroy
     has_many :games, through: :players
     has_many :hosting, :class_name => "Game", :foreign_key => "host_id", dependent: :destroy
-    validates :email, uniqueness: true
+    validates :email, uniqueness: true, presence: true
     validates :name, presence: true
 end
