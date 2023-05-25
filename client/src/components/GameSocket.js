@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { questionAdded, questionUpdated } from "../features/playSlice";
+import { questionAdded, questionUpdated, gameUpdated } from "../features/playSlice";
 import ActionCable from 'actioncable'
 
 
@@ -27,6 +27,8 @@ function GameSocket({gameId}){
             case "question added":
               dispatch(questionAdded(received_data.question))
               break;
+            case "game updated":
+              dispatch(gameUpdated(received_data))
             default:
               console.log(received_data)
               break;

@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { useDispatch } from "react-redux";
 import { userAdded, userRemoved } from "../features/usersSlice";
 
-function UpdateUser({user}){
+function UpdateUser({user, setShowEdit}){
     const [name, setName] = useState('')
     const dispatch = useDispatch()
 
@@ -16,7 +16,10 @@ function UpdateUser({user}){
             body: JSON.stringify({name: name})
           }).then(r => {
             if(r.ok){
-                r.json().then(r => dispatch(userAdded(r)))
+                r.json().then(r => {
+                  dispatch(userAdded(r))
+                  setShowEdit(false)
+                })
             } else {window.alert('error processing request')}
           })
     }

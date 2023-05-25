@@ -13,7 +13,7 @@ class GamesController < ApplicationController
     end
 
     def create 
-        game_end = DateTime.now.next_week
+        game_end = DateTime.now + 7
         game = Game.create!(host_id: session[:user_id], game_name: params[:game_name], game_end: game_end)
         player = Player.create(user_id: session[:user_id], game_id: game.id)
         render json: game, status: :created, user_id: session[:user_id]

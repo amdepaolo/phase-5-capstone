@@ -14,6 +14,11 @@ const playSlice = createSlice({
             return state
         },
 
+        gameUpdated(state, action){
+            state.most_pondered_q = action.payload.most_pondered_q
+            state.funniest_q = action.payload.funniest_q
+        },
+
         questionsCreated(state, action){
             state.questions = action.payload
         },
@@ -41,5 +46,5 @@ const playSlice = createSlice({
     }
 });
 
-export const {questionsCreated, questionAdded, playerAdded, questionUpdated, gameLoaded, voteUpdated} = playSlice.actions
+export const {questionsCreated, questionAdded, playerAdded, questionUpdated, gameLoaded, gameUpdated, voteUpdated} = playSlice.actions
 export default playSlice.reducer;

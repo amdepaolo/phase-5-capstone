@@ -17,7 +17,7 @@ function UserProfile(){
         <div>
             <h2>{user.name}</h2>
             <button onClick={() => setShowEdit(!showEdit)}>User Options</button>
-            {showEdit? <UpdateUser user={user}/>: ''}
+            {showEdit? <UpdateUser user={user} setShowEdit={setShowEdit}/>: ''}
             <h3>Jump Back In To A Game</h3>
             <ul>Your Hosted Games:
                 {hostedGamesList}

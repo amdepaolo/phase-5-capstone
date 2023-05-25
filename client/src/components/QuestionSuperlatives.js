@@ -46,10 +46,14 @@ function QuestionSuperlatives(){
                     value={superlativeVote.funniest_vote}
                     label="Funniest"
                     onChange={funniestChange}
+                    autoWidth
                 >
                     <MenuItem value={0}> Funniest </MenuItem>
                     {choices}
                 </Select>
+            </Grid>
+            <Grid xs={2}>
+                <Button onClick={saveChoices}>Save Choices</Button>
             </Grid>
             <Grid xs={4}>
                 <h3>Most Ponderable:</h3>
@@ -58,13 +62,11 @@ function QuestionSuperlatives(){
                     value={superlativeVote.ponderable_vote}
                     label="Ponderable"
                     onChange={ponderableChange}
+                    autoWidth
                 >
                     <MenuItem value={0}> Ponderable </MenuItem>
                     {choices}
                 </Select>
-            </Grid>
-            <Grid xs={4}>
-                <Button onClick={saveChoices}>Save Choices</Button>
             </Grid>
         </Grid>
     )
