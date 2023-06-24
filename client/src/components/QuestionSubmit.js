@@ -8,6 +8,14 @@ function QuestionSubmit({game}){
    const [rightChoice, setRightChoice] = useState('')
    const userAlreadySubmitted = (!!game.user_player && game.questions.some(q => q.player_id === game.user_player.id))
 
+   function errorAlert(errorObject){
+    let errorText =''
+    for (const key in errorObject) {
+        errorText +=`${key} error: ${errorObject[key].join(",")} \n`
+      }
+    window.alert(errorText)
+    }
+
    function handleSubmit(e){
        e.preventDefault();
        const questionObj = {left_choice: leftChoice, right_choice: rightChoice, player_id: game.user_player.id};
@@ -21,7 +29,7 @@ function QuestionSubmit({game}){
            r.json()
            .then(r => dispatch(questionAdded(r)
            ))}else{
-               r.json().then(r => console.log(r))
+                r.json().then(r=> errorAlert(r.errors))
            }})
    }
 

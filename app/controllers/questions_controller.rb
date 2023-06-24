@@ -2,7 +2,7 @@ class QuestionsController < ApplicationController
 
     def create
         game = Game.find(params[:game_id])
-        question = game.questions.create(question_params)
+        question = game.questions.create!(question_params)
         ActionCable.server.broadcast("game_room_#{question.game_id}", {type: "question added", question: question.serialize_self})
         render json: question, status: :created
     rescue ActiveRecord::RecordInvalid => invalid
