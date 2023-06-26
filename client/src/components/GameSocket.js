@@ -8,7 +8,7 @@ function GameSocket({gameId}){
     const [socketMessage, setSocketMessage] = useState('...')
     const dispatch = useDispatch()
 
-    const cable = ActionCable.createConsumer("ws://localhost:3000/cable")
+    const cable = ActionCable.createConsumer("/cable")
 
     cable.subscriptions.create({ channel: "GamesChannel", room: gameId }, {
         connected: function() {
@@ -29,6 +29,7 @@ function GameSocket({gameId}){
               break;
             case "game updated":
               dispatch(gameUpdated(received_data))
+              break;
             default:
               console.log(received_data)
               break;
