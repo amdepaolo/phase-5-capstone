@@ -22,6 +22,14 @@ class Question < ApplicationRecord
         end
     end
 
+    def left_comments
+        self.comments.where(favoring: "left")
+    end
+
+    def right_comments
+        self.comments.where(favoring: "right")
+    end
+
 
     def left_votes
         self.votes.where(choice: "left").length
