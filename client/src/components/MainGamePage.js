@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import QuestionCard from "./QuestionCard";
-import QuestionVote from "./QuestionVote";
+// import QuestionVote from "./QuestionVote";
 import QuestionResults from "./QuestionResults";
 import QuestionSubmit from "./QuestionSubmit";
 import { Tabs, Tab, Button } from '@mui/material';
@@ -13,6 +13,7 @@ import QuestionSuperlatives from "./QuestionSuperlatives";
 import ResultsPage from "./ResultsPage";
 import GameSocket from "./GameSocket";
 import Grid from '@mui/material/Unstable_Grid2';
+import VoteAndComment from "./VoteAndComment";
 
 function MainGamePage(){
     const game = useSelector(state => state.play)
@@ -73,7 +74,6 @@ function MainGamePage(){
     const leaveButton = <Button onClick={leaveGame}>Leave Game</Button>
     const deleteButton = <Button onClick={deleteGame}>Delete This Game</Button>
 
-
     return(
         <div>
             <Grid container spacing={1}>
@@ -102,11 +102,11 @@ function MainGamePage(){
                     <h2> Ponder and Vote! </h2>
                     <p>Look at the choices your other players have provided</p>
                     </Grid>
-                    <Grid xs={3} justi>
+                    <Grid xs={3}>
                         {questionCards}
                     </Grid>
                     <Grid xs={6}>
-                        {selectedQ? <QuestionVote question={currentQuestion} userVote={currentQVote}/>: ''}
+                        {selectedQ? <VoteAndComment question={currentQuestion} player={user_player}/>: ''}
                     </Grid>
                     <Grid xs ={3}>
                         {selectedQ? <QuestionResults question={currentQuestion}/>: ''}
