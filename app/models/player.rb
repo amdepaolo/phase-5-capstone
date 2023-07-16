@@ -5,6 +5,7 @@ class Player < ApplicationRecord
     validates :user_id, uniqueness: {scope: :game_id, message: "already a player in that game"}
     validate :game_active_validation
     has_many :votes, dependent: :destroy
+    has_many :comments 
 
     def host
         self.user_id === self.game.host_id

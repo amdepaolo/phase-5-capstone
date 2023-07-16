@@ -9,6 +9,7 @@ class Question < ApplicationRecord
     has_many :votes, dependent: :destroy
     has_many :funniest_votes, :class_name => "Player", :foreign_key => "funniest_vote"
     has_many :ponderable_votes, :class_name => "Player", :foreign_key => "ponderable_vote"
+    has_many :comments
 
     def player_in_game
         unless self.player.game_id == self.game_id

@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     resources :questions, only: [:create] do 
       put "/vote", to: 'questions#vote'
       patch "/vote", to: 'questions#vote'
-      post "/comment," to: 'comments#create'
+      post "/comment", to: 'comments#create'
     end
   end
 end
