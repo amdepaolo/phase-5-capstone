@@ -1,8 +1,11 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { commentAdded } from "../features/playSlice";
 import { useState } from "react";
 
 function CreateComment({favoring, questionId, gameId, playerId}){
     const [textContent, setTextContent] = useState('');
+    const dispatch = useDispatch()
 
     function submitComment(e){
         e.preventDefault();
@@ -18,7 +21,7 @@ function CreateComment({favoring, questionId, gameId, playerId}){
             },
             body: JSON.stringify(commentObject)
           }).then(r => r.json())
-          .then(r => console.log(r))
+          .then(r => dispatch(commentAdded(r)))
           e.target.reset()
     }
 

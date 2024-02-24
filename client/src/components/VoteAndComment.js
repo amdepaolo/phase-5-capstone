@@ -1,7 +1,7 @@
 import React from "react";
 import QuestionVote from "./QuestionVote";
 import CreateComment from "./CreateComment";
-// import QuestionComments from "./QuestionComments";
+import QuestionComments from "./QuestionComments";
 import Grid from '@mui/material/Unstable_Grid2';
 
 function VoteAndComment({question, player}){  
@@ -19,6 +19,7 @@ function VoteAndComment({question, player}){
                     gameId={question.game_id}
                     playerId={player.id}
                 /> 
+                <QuestionComments comments={question.left_comments} />
             </Grid>
             <Grid xs={6}>
                 <CreateComment 
@@ -26,7 +27,8 @@ function VoteAndComment({question, player}){
                     questionId={question.id}
                     gameId={question.game_id}
                     playerId={player.id}
-                /> 
+                />
+                <QuestionComments comments={question.right_comments} /> 
             </Grid>
         </Grid>
     )

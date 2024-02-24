@@ -23,6 +23,18 @@ const playSlice = createSlice({
             state.questions = action.payload
         },
 
+        commentAdded(state, action){
+            const question = state.questions.find(q => q.id === action.payload.question_id)
+
+            if (action.payload.favoring === "left"){
+                question.left_comments.push(action.payload)
+            } else if (action.payload.favoring === "right"){
+                question.right_comments.push(action.payload)
+            }
+
+            
+        },
+
         questionAdded(state, action){
             if (state.questions.find(q => q.id === action.payload.id)){
                 return
@@ -46,5 +58,5 @@ const playSlice = createSlice({
     }
 });
 
-export const {questionsCreated, questionAdded, playerAdded, questionUpdated, gameLoaded, gameUpdated, voteUpdated} = playSlice.actions
+export const {questionsCreated, questionAdded, playerAdded, questionUpdated, gameLoaded, gameUpdated, voteUpdated, commentAdded} = playSlice.actions
 export default playSlice.reducer;
